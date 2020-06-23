@@ -55,6 +55,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+
+                                    @can('isAdmin')
+                                    <a class="dropdown-item" href="{{ route('logout') }}">Admin Menu</a>
+
+                                    @elsecan('isStaff')
+                                    <a class="dropdown-item" href="{{ route('logout') }}">Staff Menu</a>
+                                    
+                                    @else
+                                    <a class="dropdown-item" href="{{ route('logout') }}">User Menu</a>
+                                    @endcan
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -64,6 +77,9 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+
+
+
                                 </div>
                             </li>
                         @endguest
