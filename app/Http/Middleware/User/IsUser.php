@@ -4,7 +4,7 @@ namespace App\Http\Middleware\User;
 
 use Closure;
 
-class IsActive
+class IsUser
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,17 @@ class IsActive
      */
     public function handle($request, Closure $next)
         {
+            if(auth()->user()->role == 3){
+                
             if(auth()->user()->active == 1){
                 return $next($request);
             }
+            else{
+                return redirect('blockuser');
+            }
+            
+            }
        
-            return redirect('blockuser');
+            return redirect('error');
         }
 }

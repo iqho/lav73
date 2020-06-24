@@ -37,6 +37,14 @@ class AuthServiceProvider extends ServiceProvider
            return $user->role == 3;
         });
 
+        Gate::define('isActive', function($user) {
+           return $user->active == 1;
+        });
+
+        Gate::define('isInactive', function($user) {
+           return $user->active == 0;
+        });
+
         // Gate::define('update-post', function ($user, $post) {
         //    return $user->id == $post->user_id;
         // });

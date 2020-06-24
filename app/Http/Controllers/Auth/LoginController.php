@@ -29,6 +29,18 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    protected function redirectTo()
+    {     
+    if (auth()->user()->role == 1) {
+        return '/admin';
+    }
+    if (auth()->user()->role == 2) {
+        return '/staff';
+    }
+    return '/user';
+    } 
+
+
     /**
      * Create a new controller instance.
      *
@@ -39,38 +51,5 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
-    {   
-        $input = $request->all();
-   
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-   
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-           $authuser = auth()->user();
 
-            if ($authuser->role == 1) {
-                if ($authuser->active == 1) {
-                return redirect()->route('admin.home');
-                }
-                else {
-                    return redirect('blockuser');
-                }
-            }
-            
-            if (auth()->user()->role == 2) {
-                return redirect()->route('staff.home');
-            }
-            else{
-                return redirect()->route('home');
-            }
-        }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
-        }
-          
-    }
 }
