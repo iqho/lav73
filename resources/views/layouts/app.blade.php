@@ -64,7 +64,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}">Staff Menu</a>
                                     
                                     @else
-                                    <a class="dropdown-item" href="{{ route('logout') }}">User Menu</a>
+                                    <a class="dropdown-item">User Menu</a>
                                     @endcan
 
 
